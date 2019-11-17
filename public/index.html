@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <!-- <link rel="stylesheet" href="//demo.productionready.io/main.css"> -->
+    <!-- <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css"> -->
+
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/stylesheet.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/mmenu.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/style.css" id="colors" />
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,500i,600,700&display=swap"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tag above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favico.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Booking</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start`.
+      To create a production bundle, use `npm run build`.
+    -->
+  </body>
+  <script src="%PUBLIC_URL%/scripts/jquery-3.4.1.min.js"></script>
+  <script src="%PUBLIC_URL%/scripts/chosen.min.js"></script>
+  <script src="%PUBLIC_URL%/scripts/slick.min.js"></script>
+  <script src="%PUBLIC_URL%/scripts/rangeslider.min.js"></script>
+  <script src="%PUBLIC_URL%/scripts/magnific-popup.min.js"></script>
+  <script src="%PUBLIC_URL%/scripts/jquery-ui.min.js"></script>
+  <script src="%PUBLIC_URL%/scripts/mmenu.js"></script>
+  <script src="%PUBLIC_URL%/scripts/mmenu.js"></script>
+  <script src="%PUBLIC_URL%/scripts/tooltips.min.js"></script>
+  <script src="%PUBLIC_URL%/scripts/color_switcher.js"></script>
+  <script src="%PUBLIC_URL%/scripts/jquery_custom.js"></script>
+  <!-- Maps -->
+  <script src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+  <script src="%PUBLIC_URL%/scripts/infobox.min.js"></script>
+  <script src="%PUBLIC_URL%/scripts/markerclusterer.js"></script>
+  <script src="%PUBLIC_URL%/scripts/maps.js"></script>
+  <script src="%PUBLIC_URL%/scripts/quantityButtons.js"></script>
+  <script src="%PUBLIC_URL%/scripts/moment.min.js"></script>
+  <script src="%PUBLIC_URL%/scripts/daterangepicker.js"></script>
+  <script>
+    $(function() {
+      $("#date-picker").daterangepicker({
+        opens: "left",
+        singleDatePicker: true,
+        isInvalidDate: function(date) {
+          var disabled_start = moment("09/02/2018", "MM/DD/YYYY");
+          var disabled_end = moment("09/06/2018", "MM/DD/YYYY");
+          return date.isAfter(disabled_start) && date.isBefore(disabled_end);
+        }
+      });
+    });
+
+    $("#date-picker").on("showCalendar.daterangepicker", function(ev, picker) {
+      $(".daterangepicker").addClass("calendar-animated");
+    });
+    $("#date-picker").on("show.daterangepicker", function(ev, picker) {
+      $(".daterangepicker").addClass("calendar-visible");
+      $(".daterangepicker").removeClass("calendar-hidden");
+    });
+    $("#date-picker").on("hide.daterangepicker", function(ev, picker) {
+      $(".daterangepicker").removeClass("calendar-visible");
+      $(".daterangepicker").addClass("calendar-hidden");
+    });
+
+    function close_panel_dropdown() {
+      $(".panel-dropdown").removeClass("active");
+      $(".fs-inner-container.content").removeClass("faded-out");
+    }
+    $(".panel-dropdown a").on("click", function(e) {
+      if (
+        $(this)
+          .parent()
+          .is(".active")
+      ) {
+        close_panel_dropdown();
+      } else {
+        close_panel_dropdown();
+        $(this)
+          .parent()
+          .addClass("active");
+        $(".fs-inner-container.content").addClass("faded-out");
+      }
+      e.preventDefault();
+    });
+    $(".panel-buttons button").on("click", function(e) {
+      $(".panel-dropdown").removeClass("active");
+      $(".fs-inner-container.content").removeClass("faded-out");
+    });
+    var mouse_is_inside = false;
+    $(".panel-dropdown").hover(
+      function() {
+        mouse_is_inside = true;
+      },
+      function() {
+        mouse_is_inside = false;
+      }
+    );
+    $("body").mouseup(function() {
+      if (!mouse_is_inside) close_panel_dropdown();
+    });
+  </script>
+</html>
